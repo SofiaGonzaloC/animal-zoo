@@ -18,7 +18,17 @@ class Animal(Resource):
 
         return "Your animal was added to the Zoo !"
 
+class AllAnimals(Resource):
+    def get(self):
+        response = list(database.db.animals.find())
+
+        for doc in response:
+            doc['_id'] = str(doc['_id'])
+
+        return jsonify(response)
+
 api.add_resource(Animal, '/new/')
+api.add_resource(AllAnimals, '/all/')
 
 if __name__ == '__main__':
     app.run(load_dotenv=True)
