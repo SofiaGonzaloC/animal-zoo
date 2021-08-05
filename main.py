@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_restful import Api, Resource, reqparse, abort
 from flask_pymongo import pymongo
 import db_config as database
-# from bson.json_util import Dumps, ObjectId
+from bson.json_util import ObjectId
 
 app = Flask(__name__)
 api = Api(app)
@@ -17,6 +17,17 @@ class Animal(Resource):
         }).inserted_id)
 
         return "Your animal was added to the Zoo !"
+
+    def abort_if_not_exist(self, by, data):
+        if by == "_id":
+            response = database.db.animals.find_one({"_id": ObjectId(data)})
+        else:
+            response = database.db.animals.find_one({f'{by}': data})
+
+        if response:
+            return response
+        else:
+            abort(jsonify({"status": 404, f"{by}": f"{data} not found"}))
 
 class AllAnimals(Resource):
     def get(self):
