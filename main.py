@@ -24,6 +24,25 @@ class Animal(Resource):
 
         return jsonify(response)
 
+    def put(self, by, data):
+        response = self.abort_if_not_exist(by, data)
+
+        for key, value in request.json.items():
+            response[key] = value
+
+        database.db.animals.update_one({'_id': ObjectId(response['_id'])},
+            { '$set': {
+                "name": response["name"],
+                "type": response["type"],
+                "food": response["food"],
+                "environment": response["environment"],
+                }
+            }
+        )
+
+        response['_id'] = str(response['_id'])
+        return jsonify(response)
+
     def abort_if_not_exist(self, by, data):
         if by == "_id":
             response = database.db.animals.find_one({"_id": ObjectId(data)})
