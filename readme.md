@@ -27,4 +27,6 @@ Steps to create a new instance:
 8. Create a main.py file
 
 9. Establish the connection between the project and MongoDB
-	a. 
+	a. Add necessary variables to .env file
+
+10. 
