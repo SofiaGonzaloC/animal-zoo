@@ -18,6 +18,12 @@ class Animal(Resource):
 
         return "Your animal was added to the Zoo !"
 
+    def get(self, by, data):
+        response = self.abort_if_not_exist(by, data)
+        response['_id'] = str(response['_id'])
+
+        return jsonify(response)
+
     def abort_if_not_exist(self, by, data):
         if by == "_id":
             response = database.db.animals.find_one({"_id": ObjectId(data)})
@@ -38,7 +44,7 @@ class AllAnimals(Resource):
 
         return jsonify(response)
 
-api.add_resource(Animal, '/new/')
+api.add_resource(Animal, '/new/', '/<string:by>:<string:data>/')
 api.add_resource(AllAnimals, '/all/')
 
 if __name__ == '__main__':
