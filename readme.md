@@ -29,4 +29,5 @@ Steps to create a new instance:
 9. Establish the connection between the project and MongoDB
 	a. Add necessary variables to .env file
 
-10. 
+10. Create the necessary requests on Insomnia: CRUD: POST, GET, PUT, DELETE
+

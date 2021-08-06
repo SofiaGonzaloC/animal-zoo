@@ -43,6 +43,12 @@ class Animal(Resource):
         response['_id'] = str(response['_id'])
         return jsonify(response)
 
+    def delete(self, by, data):
+        response = self.abort_if_not_exist(by, data)
+        database.db.animals.delete_one({'_id': response['_id']})
+        response['_id'] = str(response['_id'])
+        return "Animal was successfully transferred"
+
     def abort_if_not_exist(self, by, data):
         if by == "_id":
             response = database.db.animals.find_one({"_id": ObjectId(data)})
