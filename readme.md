@@ -1,5 +1,13 @@
 # Remedial for Databases for Cloud Computing
 
+## What is this?
+
+An API for simple management of a Zoo. Add an animal, update its information, get their information or delete them from the Zoo. 
+
+[DIY video here](https://youtu.be/3FXPCMWs4NM "Watch how I made this here")
+
+## How to run this project?
+
 Steps to create a new instance:
 1. Create an virtual environment and activate it
 `py -m venv venv`
@@ -30,4 +38,3 @@ Steps to create a new instance:
 	a. Add necessary variables to .env file
 
 10. Create the necessary requests on Insomnia: CRUD: POST, GET, PUT, DELETE
-
